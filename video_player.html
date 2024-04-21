@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+
+    <!-- Styling code start -->
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        video {
+            position: absolute;
+            z-index: -1;
+        }
+        #upload-btn{
+            position: fixed;
+            top: 5%;
+            left: 86%;
+            transform: translateX(-50%);
+            max-width: 200px;
+            padding: 10px;
+            border-radius: 16px;
+            border: 1px solid #fff;
+            background-color: #db4a4a;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.4s ease-out;
+        }
+        #upload-btn:hover{
+            background-color: #f85858;
+        }
+        .sub-container{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #00000080;
+        }
+        .upload-container{
+            display: none;
+            width: 100%;
+            height: auto;
+        }
+        #add-video{
+            width: 40%;
+            background-color: #fff;
+            height: auto;
+            padding: 30px;
+            text-align: center;
+            border-radius: 0px 0px 20px 20px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px -20px 100px;
+        }
+        #add-video input{
+            margin: 8px;
+            width: 240px;
+            padding: 8px;
+            font-size: 14px;
+            outline: none;
+            border-radius: 4px;
+            border: 1px solid #000;
+        }
+        #add-video button{
+            max-width: 200px;
+            padding: 10px;
+            border-radius: 16px;
+            border: 1px solid #fff;
+            background-color: #49a7d3;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.4s ease-out;
+        }
+        #add-channel{
+            width: 40%;
+            background-color: white;
+            height: 70px;
+            position: absolute;
+            top: 26%;
+            padding: 20px;
+            text-align: center;
+            z-index: 1;
+            border-radius: 20px 20px 0px 0px;
+            overflow: hidden;
+        }
+        #add-channel button{
+            width: 300px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #fff;
+            background-color: #db4a4a;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.4s ease-out;
+        }
+        #add-channel input{
+            margin: 8px;
+            width: 240px;
+            padding: 8px;
+            font-size: 14px;
+            outline: none;
+            border-radius: 4px;
+            border: 1px solid #000;
+        }
+        #add-channel #addData{
+            max-width: 200px;
+            padding: 10px;
+            border-radius: 16px;
+            border: 1px solid #fff;
+            background-color: #db4a4a;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.4s ease-out;
+        }
+    </style>
+    <!-- Styling code End -->
+
+    <!-- YouTube API Script -->
+    <script src="https://apis.google.com/js/client.js?onload=onClientLoad"></script>
+
+</head>
+<body>
+
+<button id="upload-btn" onclick="OpenModule()">Upload On YouTube</button>
+<video width="100%" height="620px" controls autoplay fullscreen>
+    <source src="final.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<div class="upload-container">
+    <div class="sub-container">
+        <form id="add-channel" onsubmit="Default(event)">
+            <button id="addbtn" onclick="openForm()">Add Channel</button><br>
+            <br>
+            <input type="text" id="title" placeholder="API KEY" >
+            <br>
+            <input type="text" id="description" placeholder="CLIENT_ID" >
+            <br>
+            <button type="button" id="addData" onclick="Addchannel()">Add Channel</button>
+        </form>
+        <form id="add-video" onsubmit="Default(event)">
+            <input type="text" id="videoTitle" placeholder="Video Title" required>
+            <br>
+            <input type="text" id="videoDescription" placeholder="Video Description" required>
+            <br>
+            <button type="button" onclick="uploadVideo()">Upload Video</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function Default(event){
+        event.preventDefault();
+    }
+
+    function openForm(){
+        var Add_Channel = document.getElementById("add-channel");
+        let CurrentHeight = Add_Channel.style.height;
+        var Button = document.getElementById("addbtn");
+
+        if(Button.textContent == "Add Channel"){
+            Button.textContent = "Upload Video";
+            Button.style.backgroundColor = "#49a7d3";
+        }else{
+            Button.textContent = "Add Channel";
+            Button.style.backgroundColor = "#db4a4a";
+        }
+
+        if(CurrentHeight == "auto"){
+            Add_Channel.style.height = "70px";
+        }else{
+            Add_Channel.style.height = "auto";
+        }
+    }
+
+    function OpenModule() {
+        var Module = document.querySelector(".upload-container");
+        var Button = document.getElementById("upload-btn");
+
+        if(Button.textContent == "Upload On YouTube"){
+            Button.textContent = "Close";
+        }else{
+            Button.textContent = "Upload On YouTube";
+        }
+        Module.style.display = Module.style.display === "block" ? "none" : "block";
+    }
+
+    // Your API key
+    var apiKey = 'AIzaSyBoJKsyMAbBFLKj90zX0-9-3_8t0E1nJAQ';
+
+    // Client ID and API key from the Developer Console
+    var CLIENT_ID = '753488920368-e5mg30t96s8pp317i3gebt88thd30ma4.apps.googleusercontent.com';
+</script>
+
+</body>
+</html>
